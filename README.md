@@ -4,7 +4,7 @@
 * [Rest API](#rest-api)
     * [Submit metric](#submit-metric)
 
-Service is used to store metrics about happen events.
+Service is used to store metrics about happen events
 
 ## Build
 To build this application execute `go build -buildmode=default -o <path_to_target_file>`
@@ -12,7 +12,7 @@ To build this application execute `go build -buildmode=default -o <path_to_targe
 ## Rest API
 ### Submit metric
 
-This API allows to store metric in storage.   
+This API allows to save metric in storage   
 * **URI:**  `{collector_host}/api/v1/metric`  
 * **Method:** `POST` 
 * **Headers:**  
@@ -20,14 +20,13 @@ This API allows to store metric in storage.
 * **Request body:**
 ```json
 {
-  "eventType": "<name of event type>",
+  "eventType": "<name of event type>"
 }
 ```  
 * **Success Response:**  
-`201` - If a metric was submitted successfully.  
-* **Error Response:**
-  
-*Http code*: `400`  
+*Http code*: `201` - if a metric was submitted successfully  
+* **Error Response:**  
+*Http code*: `400` - if body content is invalid   
 *Response body:* 
 ```json
 {
@@ -45,5 +44,5 @@ curl -X POST \
   "eventType": "redirect"
 }'
 ```
-Response:
-`201` code
+Response:  
+*Http code*: `201`
