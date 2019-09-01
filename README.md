@@ -20,7 +20,9 @@ This API allows to save metric in storage
 * **Request body:**
 ```json
 {
-  "eventType": "<name of event type>"
+  "eventType": "<name of event type>",
+  "userAgent": "<name of user agent>",
+  "timestamp": "<timestamp when event happen>"
 }
 ```  
 * **Success Response:**  
@@ -41,7 +43,9 @@ curl -X POST \
   http://localhost:8080/api/v1/metric \
   -H 'Content-Type: application/json' \
   -d '{
-  "eventType": "redirect"
+  "eventType": "redirect",
+  "userAgent": "safari",
+  "timestamp": 1257894000000000000
 }'
 ```
 Response:  

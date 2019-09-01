@@ -5,6 +5,7 @@ import (
 	"metrics-collector/dao/mock_dao"
 	"metrics-collector/model"
 	"testing"
+	"time"
 )
 
 var (
@@ -12,6 +13,8 @@ var (
 	mockDao  *mock_dao.MockDao
 	metric   = model.Metric{
 		EventType: "click",
+		UserAgent: "safari",
+		Timestamp: time.Now().UnixNano(),
 	}
 )
 

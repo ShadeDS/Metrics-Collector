@@ -3,12 +3,15 @@ package dao
 import (
 	"metrics-collector/model"
 	"testing"
+	"time"
 )
 
 var (
 	id     = "metricId"
 	metric = model.Metric{
 		EventType: "click",
+		UserAgent: "safari",
+		Timestamp: time.Now().UnixNano(),
 	}
 	metrics = make(Metrics)
 )
