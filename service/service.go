@@ -20,6 +20,7 @@ type Service struct {
 	dao dao.Dao
 }
 
+// Creates a new service instance
 func New(dao dao.Dao) *Service {
 	logger.Println("New service instance was initialized")
 	return &Service{
@@ -27,6 +28,7 @@ func New(dao dao.Dao) *Service {
 	}
 }
 
+// Generates random id and stores metric in storage
 func (s *Service) SubmitMetric(metric model.Metric) {
 	id := uuid.New().String()
 	logger.Printf("Store metric with id '%s' in storage", id)

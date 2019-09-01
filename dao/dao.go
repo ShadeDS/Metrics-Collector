@@ -33,6 +33,8 @@ type (
 	}
 )
 
+// Creates a new storage instance.
+// Starts ticker to flush storage repeatedly
 func New() Dao {
 	storage := &InMemoryStorage{
 		metrics:  make(Metrics),
@@ -53,6 +55,7 @@ func New() Dao {
 	return storage
 }
 
+// Stores received metric in storage
 func (s *InMemoryStorage) StoreMetric(id string, metric model.Metric) {
 	s.lock.Lock()
 	s.metrics[id] = metric
@@ -60,6 +63,7 @@ func (s *InMemoryStorage) StoreMetric(id string, metric model.Metric) {
 	logger.Printf("Metric with id '%s' was stored successfully", id)
 }
 
+// Flushes storage if it's not empty
 func (s *InMemoryStorage) flush() {
 	logger.Println("Flush metrics from in-memory storage")
 	s.lock.Lock()
@@ -80,6 +84,7 @@ func (s *InMemoryStorage) flush() {
 	}
 }
 
+// Returns all metrics from storage in a new collection
 func (s *InMemoryStorage) getAll() Metrics {
 	logger.Println("Get all metrics from storage")
 	metrics := make(Metrics, len(s.metrics))
@@ -91,6 +96,8 @@ func (s *InMemoryStorage) getAll() Metrics {
 	return metrics
 }
 
+// Writes received metrics to file.
+// Creates a new file if it doesn't exist
 func (s *InMemoryStorage) save(metrics Metrics) error {
 	logger.Printf("Save '%d' metrics to file '%s'", len(metrics), s.filename)
 	file, err := os.OpenFile(s.filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)

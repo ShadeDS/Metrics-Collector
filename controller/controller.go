@@ -21,6 +21,7 @@ type Controller struct {
 	service *service.Service
 }
 
+// Creates a new controller instance
 func New(s *service.Service) *Controller {
 	logger.Println("New controller instance was initialized")
 	return &Controller{
@@ -28,6 +29,8 @@ func New(s *service.Service) *Controller {
 	}
 }
 
+// Handles request to submit metric about happen event. Marshals request body
+// into object and sends it to storage
 func (c *Controller) SubmitMetric(w http.ResponseWriter, r *http.Request) {
 	logger.Println("Received request to submit metric")
 
@@ -46,10 +49,12 @@ func (c *Controller) SubmitMetric(w http.ResponseWriter, r *http.Request) {
 	logger.Println("Metric was submitted successfully")
 }
 
+// Writes json with error field to response with specified code
 func respondWithError(w http.ResponseWriter, code int, msg string) {
 	respondWithJson(w, code, map[string]string{"error": msg})
 }
 
+// Writes json to response with specified code
 func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
 	w.Header().Set("Content-Type", "application/json")
