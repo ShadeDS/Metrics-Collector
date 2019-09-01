@@ -21,7 +21,7 @@ This API allows to save metric in storage
 ```json
 {
   "eventType": "<name of event type>",
-  "userAgent": "<name of user agent>",
+  "userAgent": "<user agent details>",
   "timestamp": "<timestamp when event happen>"
 }
 ```  
@@ -44,7 +44,7 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -d '{
   "eventType": "redirect",
-  "userAgent": "safari",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
   "timestamp": 1257894000000000000
 }'
 ```
