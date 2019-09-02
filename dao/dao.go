@@ -16,12 +16,8 @@ type Dao interface {
 }
 
 var (
-	logger *log.Logger
-)
-
-func init() {
 	logger = log.New(os.Stdout, "dao: ", log.Lshortfile)
-}
+)
 
 type (
 	Metrics map[string]model.Metric
@@ -110,7 +106,9 @@ func (s *InMemoryStorage) save(metrics Metrics) error {
 		b, _ := json.Marshal(v)
 		_, err = file.WriteString(string(b) + "\n")
 		if err != nil {
-			file.Close()
+			if e := file.Close(); e != nil {
+				logger.Printf("Failed to close the file: '%s'", e.Error())
+			}
 			return err
 		}
 	}

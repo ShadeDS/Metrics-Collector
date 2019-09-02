@@ -10,12 +10,8 @@ import (
 )
 
 var (
-	logger *log.Logger
-)
-
-func init() {
 	logger = log.New(os.Stdout, "controller: ", log.Lshortfile)
-}
+)
 
 type Controller struct {
 	service *service.Service
@@ -41,6 +37,12 @@ func (c *Controller) SubmitMetric(w http.ResponseWriter, r *http.Request) {
 	if err := decoder.Decode(&metric); err != nil {
 		respondWithError(w, http.StatusBadRequest, err.Error())
 		logger.Println("Error occurred while decoding request body")
+		return
+	}
+
+	if err := metric.Validate(); err != nil {
+		respondWithError(w, http.StatusBadRequest, err.Error())
+		logger.Println("Request body is invalid")
 		return
 	}
 

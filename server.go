@@ -11,12 +11,8 @@ import (
 )
 
 var (
-	logger *log.Logger
-)
-
-func init() {
 	logger = log.New(os.Stdout, "main: ", log.Lshortfile)
-}
+)
 
 func main() {
 	logger.Println("Start application")

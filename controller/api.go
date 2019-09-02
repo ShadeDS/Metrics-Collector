@@ -22,7 +22,12 @@ func errorHandlerWrapper(handler http.Handler) http.Handler {
 		defer func() {
 			if err := recover(); err != nil {
 				logger.Printf("Error: %v", err)
-				respondWithError(w, http.StatusInternalServerError, err.(string))
+				switch err.(type) {
+				case string:
+					respondWithError(w, http.StatusInternalServerError, err.(string))
+				default:
+					respondWithError(w, http.StatusInternalServerError, "Unknown error occurred")
+				}
 				return
 			}
 		}()
