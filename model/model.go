@@ -9,14 +9,13 @@ type Metric struct {
 }
 
 func (m *Metric) Validate() error {
-	select {
-	case m.EventType == "":
+	if m.EventType == "" {
 		return errors.New("metric is invalid. event type is empty")
-	case m.UserAgent == "":
+	} else if m.UserAgent == "" {
 		return errors.New("metric is invalid. user agent is empty")
-	case m.Timestamp == 0:
+	} else if m.Timestamp == 0 {
 		return errors.New("metric is invalid. timestamp is not specified")
-	default:
+	} else {
 		return nil
 	}
 }
